@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "updater",
+    "sparkle-sys",
+    "winsparkle-sys",
+]
