@@ -1,2 +1,1 @@
-# sparkle-updater
-Sparkle/Winsparkle bindings for Rust
+updater/README.md
