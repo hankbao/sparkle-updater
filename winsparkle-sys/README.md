@@ -46,4 +46,4 @@ For more information about using WinSparkle in your Windows app, see the [WinSpa
 
 ## License
 
-This crate is licensed under the MIT license. See the LICENSE file for details.
+This crate is licensed under the MIT license. See the [LICENSE](../LICENSE) file for details.

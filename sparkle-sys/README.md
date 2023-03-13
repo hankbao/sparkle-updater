@@ -39,4 +39,4 @@ For more information about these and other settings, see the [Sparkle documentat
 
 ## License
 
-This crate is licensed under the MIT license. See the `LICENSE` file for details.
+This crate is licensed under the MIT license. See the [LICENSE](../LICENSE) file for details.
