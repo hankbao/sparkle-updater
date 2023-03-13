@@ -13,18 +13,35 @@ use winsparkle_sys::{
 #[cfg(target_os = "macos")]
 use sparkle_sys::SPUStandardUpdaterController;
 
+/// A wrapper for the WinSparkle DLL on Windows and the SPUStandardUpdaterController class in Sparkle.framework on macOS.
+///
+/// Allows you to add automatic software updates to your Windows and macOS applications.
 pub struct Updater {
     #[cfg(target_os = "macos")]
     inner: SPUStandardUpdaterController,
 }
 
 impl Updater {
+    /// Create a new `Updater` instance on macOS.
+    ///
+    /// Creates a new `Updater` instance for macOS using the SPUStandardUpdaterController class in Sparkle.framework.
     #[cfg(target_os = "macos")]
     pub fn new() -> Self {
         let inner = SPUStandardUpdaterController::new();
         Self { inner }
     }
 
+    /// Create a new `Updater` instance on Windows.
+    ///
+    /// Creates a new `Updater` instance for Windows using the WinSparkle dynamic-link library (DLL).
+    /// Takes the URL for the appcast file, the path in the registry where WinSparkle will store its settings,
+    /// and an optional callback function for handling shutdown requests.
+    ///
+    /// * `appcast_url` - A string slice containing the URL for the appcast file. This specifies the URL where WinSparkle will look for updates.
+    ///
+    /// * `registry_path` - A string slice containing the path in the registry where WinSparkle will store its settings. This sets the path where WinSparkle will store its settings in the registry.
+    ///
+    /// * `shutdown_request_callback` - An optional callback function that WinSparkle will call when it receives a request to shut down the application during an update. The callback should return `c_void`.
     #[cfg(target_os = "windows")]
     pub fn new(
         appcast_url: &str,
@@ -46,11 +63,13 @@ impl Updater {
         Self {}
     }
 
+    /// Check for app updates
     #[cfg(target_os = "macos")]
     pub fn check_for_updates(&self) {
         self.inner.check_for_updates();
     }
 
+    /// Check for app updates
     #[cfg(target_os = "windows")]
     pub fn check_for_updates(&self) {
         unsafe {
