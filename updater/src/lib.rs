@@ -1,6 +1,15 @@
 // lib.rs
 // sparkle-updater
 
+#[cfg(target_os = "windows")]
+use std::ffi::c_void;
+
+#[cfg(target_os = "windows")]
+use winsparkle_sys::{
+    win_sparkle_check_update_with_ui, win_sparkle_init, win_sparkle_set_appcast_url,
+    win_sparkle_set_registry_path, win_sparkle_set_shutdown_request_callback,
+};
+
 #[cfg(target_os = "macos")]
 use sparkle_sys::SPUStandardUpdaterController;
 
@@ -10,14 +19,42 @@ pub struct Updater {
 }
 
 impl Updater {
+    #[cfg(target_os = "macos")]
     pub fn new() -> Self {
-        #[cfg(target_os = "macos")]
         let inner = SPUStandardUpdaterController::new();
-
         Self { inner }
     }
 
+    #[cfg(target_os = "windows")]
+    pub fn new(
+        appcast_url: &str,
+        registry_path: &str,
+        shutdown_request_callback: Option<extern "C" fn() -> c_void>,
+    ) -> Self {
+        use std::ffi::CString;
+
+        let appcast_url_cstr = CString::new(appcast_url).unwrap();
+        let registry_path_cstr = CString::new(registry_path).unwrap();
+
+        unsafe {
+            win_sparkle_set_appcast_url(appcast_url_cstr.as_ptr());
+            win_sparkle_set_registry_path(registry_path_cstr.as_ptr());
+            win_sparkle_set_shutdown_request_callback(shutdown_request_callback);
+            win_sparkle_init();
+        }
+
+        Self {}
+    }
+
+    #[cfg(target_os = "macos")]
     pub fn check_for_updates(&self) {
         self.inner.check_for_updates();
+    }
+
+    #[cfg(target_os = "windows")]
+    pub fn check_for_updates(&self) {
+        unsafe {
+            win_sparkle_check_update_with_ui();
+        }
     }
 }
