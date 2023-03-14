@@ -1,3 +1,13 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:76bd6999758fd8e51d17e6b482db434f9b4768c02b037af6bd2e3a000ce8cbc1
-size 231
+@media (prefers-color-scheme: dark) {
+    html {
+        color-scheme: dark;
+        color: white;
+        background: transparent;
+    }
+    :link {
+        color: #419CFF;
+    }
+    :link:active {
+        color: #FF1919;
+    }
+}

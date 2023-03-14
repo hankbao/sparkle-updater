@@ -1,3 +1,17 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:843374e336c996247a291a84bf8944b8054d4e36e49b2614a4a8c26d629a29d5
-size 753
+/* Class = "NSWindow"; title = "Software Update"; ObjectID = "5"; */
+"5.title" = "Atualização de Software";
+
+/* Class = "NSTextFieldCell"; title = "Release Notes:"; ObjectID = "170"; */
+"170.title" = "Notas do Lançamento:";
+
+/* Class = "NSButtonCell"; title = "Remind Me Later"; ObjectID = "171"; */
+"171.title" = "Mais Tarde";
+
+/* Class = "NSButtonCell"; title = "Skip This Version"; ObjectID = "172"; */
+"172.title" = "Ignorar Esta Versão";
+
+/* Class = "NSButtonCell"; title = "Install Update"; ObjectID = "173"; */
+"173.title" = "Instalar Atualização";
+
+/* Class = "NSButtonCell"; title = "Automatically download and install updates in the future"; ObjectID = "175"; */
+"175.title" = "Baixar e instalar atualizações futuras automaticamente";
