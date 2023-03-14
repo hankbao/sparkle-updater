@@ -39,3 +39,5 @@ impl SPUStandardUpdaterController {
         }
     }
 }
+
+unsafe impl Send for SPUStandardUpdaterController {}
