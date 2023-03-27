@@ -2,7 +2,7 @@
 
 Rust bindings for the Sparkle.framework on macOS.
 
-This crate provides a wrapper for the SPUStandardUpdaterController class in Sparkle.framework, allowing you to check for updates in your macOS applications.
+This crate provides a wrapper for the SUUpdater class in Sparkle.framework, allowing you to check for updates in your macOS applications.
 
 ## Usage
 
@@ -13,13 +13,14 @@ To use this crate, add it to your `Cargo.toml`:
 sparkle-sys = "0.1.0"
 ```
 
-Then, in your Rust code, create a new `SPUStandardUpdaterController` and call `check_for_updates` to check for updates:
+Then, in your Rust code, call `sparkle_check_for_updates` to check for updates:
 
 ```rust
-use sparkle_sys::SPUStandardUpdaterController;
+use sparkle_sys::sparkle_check_for_updates;
 
-let updater = SPUStandardUpdaterController::new();
-updater.check_for_updates();
+unsafe {
+    sparkle_check_for_updates();
+}
 ```
 
 Note that this crate only provides bindings for Sparkle.framework, so you will need to include the framework in your macOS application separately. Additionally, to use Sparkle in your macOS app, you need to add certain settings to your Info.plist file:

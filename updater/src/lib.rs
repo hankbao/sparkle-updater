@@ -9,24 +9,20 @@ use winsparkle_sys::{
 };
 
 #[cfg(target_os = "macos")]
-use sparkle_sys::SPUStandardUpdaterController;
+use sparkle_sys::sparkle_check_for_updates;
 
-/// A wrapper for the WinSparkle DLL on Windows and the SPUStandardUpdaterController class in Sparkle.framework on macOS.
+/// A wrapper for the WinSparkle DLL on Windows and the SUUpdater class in Sparkle.framework on macOS.
 ///
 /// Allows you to add automatic software updates to your Windows and macOS applications.
-pub struct Updater {
-    #[cfg(target_os = "macos")]
-    inner: SPUStandardUpdaterController,
-}
+pub struct Updater;
 
 impl Updater {
     /// Create a new `Updater` instance on macOS.
     ///
-    /// Creates a new `Updater` instance for macOS using the SPUStandardUpdaterController class in Sparkle.framework.
+    /// Creates a new `Updater` instance for macOS
     #[cfg(target_os = "macos")]
     pub fn new() -> Self {
-        let inner = SPUStandardUpdaterController::new();
-        Self { inner }
+        Self
     }
 
     /// Create a new `Updater` instance on Windows.
@@ -157,7 +153,9 @@ impl Updater {
     /// Check for app updates
     #[cfg(target_os = "macos")]
     pub fn check_for_updates(&self) {
-        self.inner.check_for_updates();
+        unsafe {
+            sparkle_check_for_updates();
+        }
     }
 
     /// Check for app updates

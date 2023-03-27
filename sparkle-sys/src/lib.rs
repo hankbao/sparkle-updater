@@ -9,35 +9,11 @@ extern "C" {}
 
 use objc::{class, msg_send, runtime::Object, sel, sel_impl};
 
-/// A wrapper for the `SPUStandardUpdaterController` class in `Sparkle.framework`.
-///
-/// Allows you to check for updates in your macOS applications.
-pub struct SPUStandardUpdaterController {
-    inner: *mut Object,
+/// Check for updates.
+pub unsafe fn sparkle_check_for_updates() {
+    let cls = class!(SUUpdater);
+    let shared: *mut Object = msg_send![cls, sharedUpdater];
+
+    let nil: *mut Object = std::ptr::null_mut();
+    let _: () = msg_send![shared, checkForUpdates: nil];
 }
-
-impl SPUStandardUpdaterController {
-    /// Create a new `SPUStandardUpdaterController`.
-    pub fn new() -> SPUStandardUpdaterController {
-        let cls = class!(SPUStandardUpdaterController);
-
-        let inner: *mut Object = unsafe {
-            let obj: *mut Object = msg_send![cls, alloc];
-            let nil: *mut Object = std::ptr::null_mut();
-            let obj: *mut Object = msg_send![obj, initWithStartingUpdater:true updaterDelegate:nil userDriverDelegate:nil];
-            obj
-        };
-
-        SPUStandardUpdaterController { inner }
-    }
-
-    /// Check for updates.
-    pub fn check_for_updates(&self) {
-        unsafe {
-            let nil: *mut Object = std::ptr::null_mut();
-            let _: () = msg_send![self.inner, checkForUpdates: nil];
-        }
-    }
-}
-
-unsafe impl Send for SPUStandardUpdaterController {}
